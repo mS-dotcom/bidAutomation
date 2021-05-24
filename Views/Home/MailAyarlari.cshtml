@@ -1,0 +1,23 @@
+﻿@model Wantsan.Models.Mail
+@{
+    ViewBag.Title = "MailAyarlari";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <center>
+        <table>
+            <tr>
+                <td>Mail Adresi</td>
+                <td><input type="text" name="mail1" value="@Model.mail1" /></td>
+            </tr>
+            <tr>
+                <td>Şifre</td>
+                <td><input type="password" name="password" value="@Model.password" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Güncelle" class="btn btn-warning" /></td>
+            </tr>
+        </table>
+    </center>
+</form>

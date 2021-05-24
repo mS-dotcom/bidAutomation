@@ -1,0 +1,276 @@
+﻿
+@model dynamic
+@{
+    ViewBag.Title = "BuyuklukTipleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ 
+    <meta name="viewport" content="width=device-width" />
+    <title>Teklif Ekle</title>
+    <style>
+      
+
+        .stepwizard-step p {
+            margin-top: 10px;
+        }
+
+        .stepwizard-row {
+            display: table-row;
+        }
+
+        .stepwizard {
+            display: table;
+            width: 100%;
+            position: relative;
+        }
+
+        .stepwizard-step button[disabled] {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+
+        .stepwizard-row:before {
+            top: 14px;
+            bottom: 0;
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            z-order: 0;
+        }
+
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="container">
+
+            <div class="stepwizard">
+                <div class="stepwizard-row setup-panel">
+                    <div class="stepwizard-step">
+                        <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                        <p>Genel Bilgiler</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <a href="#" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                        <p>Pozisyonlar</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <a href="#" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                        <p>Teknik Özellikler ve Ana Ölçüleri</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <a href="#" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+                        <p>Kaydet</p>
+                    </div>
+                </div>
+            </div>
+            <form name="f1" id="f1" method="post" role="form">
+                <div class="container">
+                    <div class="col-md-12">
+                       
+                            <h3>Genel Bilgiler</h3>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Tarih</label>
+                                <input name="date" id="date" maxlength="100" type="date" class="form-control" placeholder="Tarih Seçiniz" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Sayın</label>
+                                <input name="sayin" id="sayin" maxlength="100" type="text" class="form-control" placeholder="Sayın" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">İşin Adı</label>
+                                <input name="isin_adi" id="isin_adi" maxlength="100" type="text" class="form-control" placeholder="İşin Adı" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">İlgi</label>
+                                <input name="ilgi" id="ilgi" maxlength="100" type="text" class="form-control" placeholder="İlgi" />
+                            </div>
+                            @*<div class="form-group">
+                        <label class="control-label">Toplam Bedeli</label>
+                        <input maxlength="100" type="text" class="form-control" placeholder="Toplam Bedel(Lütfen Sayı Giriniz Aksi Halde Hatalara Yer Verebilirsiniz)" />
+                    </div>*@
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Teslim Süresi</label>
+                                <input name="teslimsuresi" id="teslimsuresi" maxlength="100" type="text" class="form-control" placeholder="Teslim Süresi" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Teslim Yeri ve Şekli</label>
+                                <select name="teslim_yeri" id="teslim_yeri" class="form-control">
+                                    @foreach (var item in ViewBag.teslims)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Ödeme Şartları</label>
+                                <input name="odemesarti" id="odemesarti" maxlength="100" type="text" class="form-control" placeholder="Ödeme Şartları" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Garanti</label>
+                                <input name="garanti" id="garanti" maxlength="100" type="text" class="form-control" placeholder="Garanti" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:22px;">Opsiyon</label>
+                                <input name="obsiyon" id="obsiyon" maxlength="100" type="text" class="form-control" placeholder="Obsiyon" />
+                            </div>
+                            <input type="submit" value="Kaydet ve Devam Et" class="btn btn-primary nextBtn btn-lg pull-right">
+                        </center>
+                    </div>
+                </div>
+            </form>
+                </div>
+           
+
+    @* ESKİ KODLAR
+           <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-1">Tarih</div>
+                <div class="col-md-1"><input type="date" /></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">ID</div>
+                <div class="col-md-1"><input type="text" /></div>
+                <div class="col-md-9"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">İşin Adı</div>
+                <div class="col-md-10"><input type="text" style="width:100%;height:50px;" /></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">İlgi</div>
+                <div class="col-md-10"><input type="text" style="width:100%;" /></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Toplam Bedeli</div>
+                <div class="col-md-9"><input type="text" style="width:100%;" /></div>
+                <div class="col-md-1"><b>TL+KDV</b></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Teslim Süresi</div>
+                <div class="col-md-5"><input type="text" style="width:100%;" /></div>
+                <div class="col-md-2">Teslim Yeri ve Şekli</div>
+                <div class="col-md-3">
+                    <select style="width:100%;">
+                        <option>Firmanızda Teslim</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Ödeme Şartları</div>
+                <div class="col-md-5"><input type="text" style="width:100%;" /></div>
+                <div class="col-md-2">Garanti</div>
+                <div class="col-md-3"><input type="text" style="width:100%;" /></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">Obsiyon</div>
+                <div class="col-md-10"><input type="text" style="width:100%;" /></div>
+            </div>
+        </div>*@
+    <script type="text/javascript">
+
+        function mysFunction() {
+            var tutarbir = document.getElementById("tutarbir");
+            var miktarbir = document.getElementById("miktarbir");
+            var birimbir = document.getElementById("birimbir");
+
+            var tutariki = document.getElementById("tutariki");
+            var miktariki = document.getElementById("miktariki");
+            var birimiki = document.getElementById("birimiki");
+
+            var tutaruc = document.getElementById("tutaruc");
+            var miktaruc = document.getElementById("miktaruc");
+            var birimuc = document.getElementById("birimuc");
+
+            var tutardort = document.getElementById("tutardort");
+            var miktardort = document.getElementById("miktardort");
+            var birimdort = document.getElementById("birimdort");
+
+            var tutarbes = document.getElementById("tutarbes");
+            var miktarbes = document.getElementById("miktarbes");
+            var birimbes = document.getElementById("birimbes");
+
+            var toplam = document.getElementById("poz_toplam");
+            var kdv = document.getElementById("poz_kdv");
+            var tutartoplam = document.getElementById("poz_tutar_toplam");
+
+            tutarbir.value = miktarbir.value * birimbir.value;
+            tutariki.value = miktariki.value * birimiki.value;
+            tutaruc.value = miktaruc.value * birimuc.value;
+            tutardort.value = miktardort.value * birimdort.value;
+            tutarbes.value = miktarbes.value * birimbes.value;
+            tutartoplam.value = parseInt(tutarbir.value) + parseInt(tutariki.value) + parseInt(tutaruc.value) + parseInt(tutardort.value) + parseInt(tutarbes.value);
+            kdv.value = parseInt(tutartoplam.value * 0.18);
+            toplam.value = parseInt(tutartoplam.value) + parseInt(kdv.value);
+        }
+
+
+        $(document).ready(function () {
+
+            var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn');
+
+            allWells.hide();
+
+            navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.removeClass('btn-primary').addClass('btn-default');
+                    $item.addClass('btn-primary');
+                    allWells.hide();
+                    $target.show();
+                    $target.find('input:eq(0)').focus();
+                }
+            });
+
+            allNextBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+
+                $(".form-group").removeClass("has-error");
+                for (var i = 0; i < curInputs.length; i++) {
+                    if (!curInputs[i].validity.valid) {
+                        isValid = false;
+                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                    }
+                }
+
+                if (isValid)
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+            });
+
+            $('div.setup-panel div a.btn-primary').trigger('click');
+        });
+    </script>
+</body>
+</html>

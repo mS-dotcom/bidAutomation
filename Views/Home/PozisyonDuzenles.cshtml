@@ -1,0 +1,124 @@
+﻿@model List<Wantsan.Models.Pozisyonlar>
+@{
+    ViewBag.Title = "PozisyonDuzenles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<form method="post">
+    <h2>Pozisyon Ekle</h2>
+    <div style="font-size:14px;" class="container">
+        <div class="row">
+            <div class="col-md-1"><center>Pozisyon No</center></div>
+            <div class="col-md-6"><center>Cinsi</center></div>
+            <div class="col-md-1"><center>Miktar</center></div>
+            <div class="col-md-2"><center>Birim Fiyatı</center></div>
+            <div class="col-md-1"><center>Tutar</center></div>
+            <div class="col-md-1"><center>EKLE</center></div>
+        </div>
+        @{
+            Wantsan.Models.vantsanEntities ent = new Wantsan.Models.vantsanEntities();
+        }
+
+        @if (@Convert.ToInt32(ViewBag.count) > 0)
+        {
+            int x = Convert.ToInt32(ViewBag.count);
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+    <div class="row">
+        <div class="col-md-1"><input class="form-control" id="pozisyon" name="pozisyon" disabled="disabled" type="text" style="width:100%; text-align:center; background-color:green;color:white;" value="@count" /></div>
+        <div class="col-md-6"><input class="form-control" id="cinsi" name="cinsi" disabled="disabled" type="text" style="width:100%;text-align:center;background-color:green;color:white;" value="@item.Cinsi" /></div>
+        <div class="col-md-1"><input class="form-control" id="miktar" name="miktar" disabled="disabled" type="text" style="width:100%;text-align:center;background-color:green;color:white;" value="@item.Miktar" /></div>
+        <div class="col-md-2"><input class="form-control" id="birim" name="birim" disabled="disabled" type="text" style="width:100%;text-align:center;background-color:green;color:white;" value="@item.BirimFiyatı" /></div>
+        <div class="col-md-1"><input class="form-control" onchange="myFunction()" disabled="disabled" onclick="myFunction()" id="tutar" name="tutar" type="text" style="width:100%;text-align:center;background-color:green;color:white;" value="@item.Tutarı" /></div>
+        <div class="col-md-1"><center><a href="/Home/PozisyonSil/@item.id" style="color:red;font-size:30px;text-decoration:none;">-</a></center></div>
+    </div>
+            }
+            x = x + 1;
+            <div class="row">
+                <div class="col-md-1"><input class="form-control" id="pozisyons" name="pozNo" type="text" style="width:100%; text-align:center;" value="@x" /></div>
+                <div class="col-md-6"><input class="form-control" id="cinsis" name="Cinsi" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"><input class="form-control" id="miktars" name="Miktar" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-2"><input class="form-control" id="birims" name="BirimFiyatı" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"><input class="form-control" onchange="mysFunction()" onclick="mysFunction()" id="tutars" name="Tutarı" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"><center><button type="submit" style="color:green;font-size:30px;text-decoration:none;background-color:white;border:none;">+</button></center></div>
+            </div>
+        }
+        else
+        {
+            int x = Convert.ToInt32(ViewBag.count);
+            x = x + 1;
+            <div class="row">
+                <div class="col-md-1"><input class="form-control" id="pozisyon" name="pozNo" type="text" style="width:100%; text-align:center;" value="@x" /></div>
+                <div class="col-md-6"><input class="form-control" id="cinsi" name="Cinsi" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"><input class="form-control" id="miktarss" name="Miktar" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-2"><input class="form-control" id="birimss" name="BirimFiyatı" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"><input class="form-control" onchange="myssFunction()" onclick="myssFunction()" id="tutarss" name="Tutarı" type="text" style="width:100%;text-align:center;" /></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"><center><button type="submit" style="color:green;font-size:30px;text-decoration:none;background-color:white;border:none;">+</button></center></div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-2"><b><center>Tutar Toplamı</center></b></div>
+            <div class="col-md-1"><input type="text" disabled="disabled" class="form-control" onchange="mysFunction()" onclick="mysFunction()" id="poz_tutar_toplam" name="poz_tutar_toplam" value="@ViewBag.poztutartoplam" /></div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-2"><b><center>KDV</center></b></div>
+            <div class="col-md-1"><input type="text" disabled="disabled" class="form-control" onchange="mysFunction()" onclick="mysFunction()" id="poz_kdv" name="poz_kdv" value="@ViewBag.pozkdv" /></div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-2"><b><center>Toplam</center></b></div>
+            <div class="col-md-1"><input type="text" disabled="disabled" class="form-control" onchange="mysFunction()" onclick="mysFunction()" id="poz_toplam" name="poz_toplam" value="@ViewBag.poztoplam" /></div>
+            <div class="col-md-1"></div>
+        </div>
+        <a href="/Home/TeknikOzellikEkle/@ViewBag.id" class="btn btn-primary nextBtn btn-lg pull-right">Kaydet</a>
+    </div>
+</form>
+<script type="text/javascript">
+    function myFunction() {
+        var miktar = document.getElementById("miktar");
+        var birim = document.getElementById("birim");
+        var tutar = document.getElementById("tutar");
+        tutar.value = birim.value * miktar.value;
+    }
+
+
+    function mysFunction() {
+        var miktars = document.getElementById("miktars");
+        var birims = document.getElementById("birims");
+        var tutars = document.getElementById("tutars");
+
+
+
+        tutars.value = birims.value * miktars.value;
+
+        //tutarbir.value = miktarbir.value * birimbir.value;
+        //tutariki.value = miktariki.value * birimiki.value;
+        //tutaruc.value = miktaruc.value * birimuc.value;
+        //tutardort.value = miktardort.value * birimdort.value;
+        //tutarbes.value = miktarbes.value * birimbes.value;
+        //tutartoplam.value = parseInt(tutarbir.value) + parseInt(tutariki.value) + parseInt(tutaruc.value) + parseInt(tutardort.value) + parseInt(tutarbes.value);
+        //kdv.value = parseInt(tutartoplam.value * 0.18);
+        //toplam.value = parseInt(tutartoplam.value) + parseInt(kdv.value);
+    }
+    function myssFunction() {
+        var miktarss = document.getElementById("miktarss");
+        var birimss = document.getElementById("birimss");
+        var tutarss = document.getElementById("tutarss");
+        tutarss.value = birimss.value * miktarss.value;
+    }
+</script>

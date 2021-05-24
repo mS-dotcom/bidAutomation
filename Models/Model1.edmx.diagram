@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d309e2616ede44fcb26d7b498afab9ed" Name="Diagram1">
+        <EntityTypeShape EntityType="vantsanModel.buyukluk_tipleri" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.buyukluk_values" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.Pozisyonlar" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.teklif" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.teslim_yerleri_tipleri" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.users" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="vantsanModel.FK_buyukluk_values_buyukluk_tipleri" ManuallyRouted="false" />
+        <AssociationConnector Association="vantsanModel.FK_Pozisyonlar_teklif" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="vantsanModel.Musteri" Width="1.5" PointX="5.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vantsanModel.Mail" Width="1.5" PointX="7.875" PointY="4.25" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

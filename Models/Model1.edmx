@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="vantsanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="buyukluk_tipleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="buyukluk_values">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="buyukluk_id" Type="int" Nullable="false" />
+          <Property Name="teklif_id" Type="int" Nullable="false" />
+          <Property Name="value1" Type="varchar(max)" />
+          <Property Name="value2" Type="varchar(max)" />
+          <Property Name="value3" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mail" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" />
+          <Property Name="phone" Type="varchar(max)" />
+          <Property Name="mail" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Pozisyonlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Teklif_ID" Type="int" Nullable="false" />
+          <Property Name="pozNo" Type="varchar" MaxLength="50" />
+          <Property Name="Cinsi" Type="varchar(max)" />
+          <Property Name="Miktar" Type="int" />
+          <Property Name="BirimFiyatı" Type="int" />
+          <Property Name="Tutarı" Type="int" />
+        </EntityType>
+        <EntityType Name="teklif">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="sayin" Type="varchar(max)" />
+          <Property Name="isin_adi" Type="varchar(max)" />
+          <Property Name="ilgi" Type="varchar(max)" />
+          <Property Name="toplambedel" Type="int" />
+          <Property Name="teslimsuresi" Type="varchar(max)" />
+          <Property Name="teslim_yeri" Type="varchar(max)" />
+          <Property Name="odemesarti" Type="varchar(max)" />
+          <Property Name="garanti" Type="varchar(max)" />
+          <Property Name="obsiyon" Type="varchar(max)" />
+          <Property Name="poz_tutar_toplam" Type="int" />
+          <Property Name="poz_kdv" Type="int" />
+          <Property Name="poz_toplam" Type="int" />
+          <Property Name="iskonto_orani" Type="int" />
+          <Property Name="iskonto_tutari" Type="int" />
+        </EntityType>
+        <EntityType Name="teslim_yerleri_tipleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_buyukluk_values_buyukluk_tipleri">
+          <End Role="buyukluk_tipleri" Type="Self.buyukluk_tipleri" Multiplicity="1" />
+          <End Role="buyukluk_values" Type="Self.buyukluk_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buyukluk_tipleri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="buyukluk_values">
+              <PropertyRef Name="buyukluk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozisyonlar_teklif">
+          <End Role="teklif" Type="Self.teklif" Multiplicity="1" />
+          <End Role="Pozisyonlar" Type="Self.Pozisyonlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teklif">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pozisyonlar">
+              <PropertyRef Name="Teklif_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vantsanModelStoreContainer">
+          <EntitySet Name="buyukluk_tipleri" EntityType="Self.buyukluk_tipleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="buyukluk_values" EntityType="Self.buyukluk_values" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mail" EntityType="Self.Mail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pozisyonlar" EntityType="Self.Pozisyonlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teklif" EntityType="Self.teklif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teslim_yerleri_tipleri" EntityType="Self.teslim_yerleri_tipleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_buyukluk_values_buyukluk_tipleri" Association="Self.FK_buyukluk_values_buyukluk_tipleri">
+            <End Role="buyukluk_tipleri" EntitySet="buyukluk_tipleri" />
+            <End Role="buyukluk_values" EntitySet="buyukluk_values" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozisyonlar_teklif" Association="Self.FK_Pozisyonlar_teklif">
+            <End Role="teklif" EntitySet="teklif" />
+            <End Role="Pozisyonlar" EntitySet="Pozisyonlar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vantsanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="buyukluk_tipleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="buyukluk_values" Relationship="Self.FK_buyukluk_values_buyukluk_tipleri" FromRole="buyukluk_tipleri" ToRole="buyukluk_values" />
+        </EntityType>
+        <EntityType Name="buyukluk_values">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="buyukluk_id" Type="Int32" Nullable="false" />
+          <Property Name="teklif_id" Type="Int32" Nullable="false" />
+          <Property Name="value1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="value2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="value3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="buyukluk_tipleri" Relationship="Self.FK_buyukluk_values_buyukluk_tipleri" FromRole="buyukluk_values" ToRole="buyukluk_tipleri" />
+        </EntityType>
+        <EntityType Name="Pozisyonlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Teklif_ID" Type="Int32" Nullable="false" />
+          <Property Name="pozNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cinsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Miktar" Type="Int32" />
+          <Property Name="BirimFiyatı" Type="Int32" />
+          <Property Name="Tutarı" Type="Int32" />
+          <NavigationProperty Name="teklif" Relationship="Self.FK_Pozisyonlar_teklif" FromRole="Pozisyonlar" ToRole="teklif" />
+        </EntityType>
+        <EntityType Name="teklif">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="sayin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isin_adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ilgi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="toplambedel" Type="Int32" />
+          <Property Name="teslimsuresi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="teslim_yeri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="odemesarti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="garanti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="obsiyon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="poz_tutar_toplam" Type="Int32" />
+          <Property Name="poz_kdv" Type="Int32" />
+          <Property Name="poz_toplam" Type="Int32" />
+          <NavigationProperty Name="Pozisyonlar" Relationship="Self.FK_Pozisyonlar_teklif" FromRole="teklif" ToRole="Pozisyonlar" />
+          <Property Name="iskonto_orani" Type="Int32" />
+          <Property Name="iskonto_tutari" Type="Int32" />
+        </EntityType>
+        <EntityType Name="teslim_yerleri_tipleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_buyukluk_values_buyukluk_tipleri">
+          <End Role="buyukluk_tipleri" Type="Self.buyukluk_tipleri" Multiplicity="1" />
+          <End Role="buyukluk_values" Type="Self.buyukluk_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buyukluk_tipleri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="buyukluk_values">
+              <PropertyRef Name="buyukluk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozisyonlar_teklif">
+          <End Role="teklif" Type="Self.teklif" Multiplicity="1" />
+          <End Role="Pozisyonlar" Type="Self.Pozisyonlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teklif">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pozisyonlar">
+              <PropertyRef Name="Teklif_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vantsanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="buyukluk_tipleri" EntityType="Self.buyukluk_tipleri" />
+          <EntitySet Name="buyukluk_values" EntityType="Self.buyukluk_values" />
+          <EntitySet Name="Pozisyonlar" EntityType="Self.Pozisyonlar" />
+          <EntitySet Name="teklif" EntityType="Self.teklif" />
+          <EntitySet Name="teslim_yerleri_tipleri" EntityType="Self.teslim_yerleri_tipleri" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="FK_buyukluk_values_buyukluk_tipleri" Association="Self.FK_buyukluk_values_buyukluk_tipleri">
+            <End Role="buyukluk_tipleri" EntitySet="buyukluk_tipleri" />
+            <End Role="buyukluk_values" EntitySet="buyukluk_values" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozisyonlar_teklif" Association="Self.FK_Pozisyonlar_teklif">
+            <End Role="teklif" EntitySet="teklif" />
+            <End Role="Pozisyonlar" EntitySet="Pozisyonlar" />
+          </AssociationSet>
+          <EntitySet Name="Musteri" EntityType="vantsanModel.Musteri" />
+          <EntitySet Name="Mail" EntityType="vantsanModel.Mail" />
+        </EntityContainer>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Mail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mail1" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vantsanModelStoreContainer" CdmEntityContainer="vantsanEntities">
+          <EntitySetMapping Name="buyukluk_tipleri">
+            <EntityTypeMapping TypeName="vantsanModel.buyukluk_tipleri">
+              <MappingFragment StoreEntitySet="buyukluk_tipleri">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="buyukluk_values">
+            <EntityTypeMapping TypeName="vantsanModel.buyukluk_values">
+              <MappingFragment StoreEntitySet="buyukluk_values">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="buyukluk_id" ColumnName="buyukluk_id" />
+                <ScalarProperty Name="teklif_id" ColumnName="teklif_id" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="value3" ColumnName="value3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pozisyonlar">
+            <EntityTypeMapping TypeName="vantsanModel.Pozisyonlar">
+              <MappingFragment StoreEntitySet="Pozisyonlar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Teklif_ID" ColumnName="Teklif_ID" />
+                <ScalarProperty Name="pozNo" ColumnName="pozNo" />
+                <ScalarProperty Name="Cinsi" ColumnName="Cinsi" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="BirimFiyatı" ColumnName="BirimFiyatı" />
+                <ScalarProperty Name="Tutarı" ColumnName="Tutarı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teklif">
+            <EntityTypeMapping TypeName="vantsanModel.teklif">
+              <MappingFragment StoreEntitySet="teklif">
+                <ScalarProperty Name="iskonto_tutari" ColumnName="iskonto_tutari" />
+                <ScalarProperty Name="iskonto_orani" ColumnName="iskonto_orani" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="sayin" ColumnName="sayin" />
+                <ScalarProperty Name="isin_adi" ColumnName="isin_adi" />
+                <ScalarProperty Name="ilgi" ColumnName="ilgi" />
+                <ScalarProperty Name="toplambedel" ColumnName="toplambedel" />
+                <ScalarProperty Name="teslimsuresi" ColumnName="teslimsuresi" />
+                <ScalarProperty Name="teslim_yeri" ColumnName="teslim_yeri" />
+                <ScalarProperty Name="odemesarti" ColumnName="odemesarti" />
+                <ScalarProperty Name="garanti" ColumnName="garanti" />
+                <ScalarProperty Name="obsiyon" ColumnName="obsiyon" />
+                <ScalarProperty Name="poz_tutar_toplam" ColumnName="poz_tutar_toplam" />
+                <ScalarProperty Name="poz_kdv" ColumnName="poz_kdv" />
+                <ScalarProperty Name="poz_toplam" ColumnName="poz_toplam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teslim_yerleri_tipleri">
+            <EntityTypeMapping TypeName="vantsanModel.teslim_yerleri_tipleri">
+              <MappingFragment StoreEntitySet="teslim_yerleri_tipleri">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="vantsanModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteri">
+            <EntityTypeMapping TypeName="vantsanModel.Musteri">
+              <MappingFragment StoreEntitySet="Musteri">
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mail">
+            <EntityTypeMapping TypeName="vantsanModel.Mail">
+              <MappingFragment StoreEntitySet="Mail">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="mail1" ColumnName="mail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

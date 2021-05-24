@@ -1,0 +1,70 @@
+﻿@model Wantsan.Models.teklif
+@{
+    ViewBag.Title = "TeklifDuzenle";
+
+}
+
+
+
+<center>
+    <h2>Teklif Düzenle</h2>
+    <form method="post" name="f1">
+        <h4>Tarih</h4>
+        <br />
+        <input type="date" name="date" id="myDate" />
+        <br />
+        Sayın
+        <br />
+        <input type="text" name="sayin" value="@Model.sayin" />
+        <br />
+        İşin Adı
+        <br />
+        <input type="text" name="isin_adi" value="@Model.isin_adi" />
+        <br />
+        İlgi
+        <br />
+        <input type="text" name="ilgi" value="@Model.ilgi" />
+        <br />
+        Toplam Bedeli
+        <br />
+        <input type="text" style="width:400px;" name="toplambedel" disabled="disabled" placeholder="@Model.toplambedel Bu Değer Ancak Pozisyonlar Bölgesinden Değiştirilebilir" />
+        <br />
+        Teslim Süresi
+        <br />
+        <input type="text" value="@Model.teslimsuresi" name="teslimsuresi" />
+        <br />
+        Teslim Yeri
+        <br />
+        <select value="@Model.teslim_yeri" name="teslim_yeri">
+            @foreach (var item in ViewBag.teslims)
+            {
+                if (Model.teslim_yeri == item.name)
+                {
+                    <option selected="selected">@item.name</option>
+                }
+                else
+                {
+                    <option>@item.name</option>
+                }
+            }
+        </select>
+        <br />
+        Ödeme Şartı
+        <br />
+        <input type="text" name="odemesarti" value="@Model.odemesarti" />
+        <br />
+        Garanti
+        <br />
+        <input type="text" name="garanti" value="@Model.garanti" />
+        <br />
+        Obsiyon
+        <br />
+        <input type="text" name="obsiyon" value="@Model.obsiyon" />
+        <br />
+        <input type="submit" class="btn btn-primary" value="Güncelle" />
+    </form>
+</center>
+
+<script type="text/javascript">
+    document.getElementById("myDate").defaultValue = "@Convert.ToDateTime(Model.date).ToString("yyyy-MM-dd")";
+</script>

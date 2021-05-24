@@ -1,0 +1,601 @@
+﻿@model Wantsan.Controllers.ViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Teklif Görüntüle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+
+<body style="font-size:11px;">
+    <div class="container-fluid">
+        <center>
+            <table class="table-bordered" width="100%" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="border-left:5px solid black; border-top:5px solid black;" colspan="4" width="188">
+                            <b>ALICI FİRMA                :</b> @Model.teklifs.FirstOrDefault().sayin
+                        </td>
+                        <td colspan="3" style="border-top: 5px solid black;" width="191">
+                            <b>TEKLİF NO:</b> @Model.teklifs.FirstOrDefault().id
+                        </td>
+                        <td colspan="2" style="border-right:5px solid black;border-top:5px solid black;" width="187">
+                            <b>TARİH:</b> @Convert.ToDateTime(Model.teklifs.FirstOrDefault().date).ToString("dd/MM/yyyy")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" style="border-left:5px solid black;border-right:5px solid black;" height="100px" width="566">
+                            <b>İŞİN ADI                       :</b> @Model.teklifs.FirstOrDefault().isin_adi
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:5px solid black; border-right:5px solid black;" colspan="6" width="379">
+                            <b>İLGİ                               :</b> @Model.teklifs.FirstOrDefault().ilgi
+                        </td>
+                        <td style="border-right:5px solid black;" colspan="3" width="187">
+                            <b>OPSİYON :</b> @Model.teklifs.FirstOrDefault().obsiyon
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:5px solid black;border-right:5px solid black;" colspan="6" width="379">
+                            <b>TESLİM YERİ VE ŞEKLİ :</b> @Model.teklifs.FirstOrDefault().teslim_yeri
+                        </td>
+                        <td colspan="3" style="border-right:5px solid black !important;" width="100">
+                            <b>GARANTİ :</b> @Model.teklifs.FirstOrDefault().garanti
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:5px solid black;border-right:5px solid black;border-bottom:3px solid black;" colspan="9" width="566">
+                            <b>ÖDEME ŞEKLİ               :</b> @Model.teklifs.FirstOrDefault().odemesarti
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:5px solid black;border-right:3px solid black;border-bottom:3px solid black;" colspan="1" width="50">
+                            <b>POZ NO</b>
+                        </td>
+                        <td style="border-right:3px solid black;border-bottom:3px solid black;" colspan="5" width="150">
+                            <b>CİNSİ</b>
+                        </td>
+                        <td style="border-right:3px solid black;border-bottom:3px solid black;" width="93">
+                            <b>MİKTAR</b>
+                        </td>
+                        <td style="border-right:3px solid black;border-bottom:3px solid black;" width="97">
+                            <b>Birim</b>
+                        </td>
+                        <td style="border-right:5px solid black;border-bottom:3px solid black;" width="100">
+                            <b>TUTAR</b>
+                        </td>
+                    </tr>
+                    @{
+                        int counts = 0;
+                        int count = 0;
+                    }
+                    @foreach (var item in Model.pozisyonlars)
+                    {
+                        counts++;
+                        <tr>
+                            <td style="border-left:5px solid black;border-right:3px solid black;border-bottom:3px solid black;" colspan="1" width="50">
+                                <center><b>@counts</b></center>
+                            </td>
+                            <td style="border-right:3px solid black;border-bottom:3px solid black;" colspan="5" width="150">
+
+                                @if (item.Cinsi.Length > 25)
+                                {
+                                    count = 0;
+                                    for (int i = 0; i < item.Cinsi.ToString().Length; i++)
+                                    {
+                                        count++;
+                                        @item.Cinsi[i]
+                                        if (count == 80)
+                                        {
+                                            <br />
+                                            count = 0;
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    @item.Cinsi
+                                }
+
+                            </td>
+                            <td style="border-right:3px solid black;border-bottom:3px solid black;" width="93">
+                                @item.Miktar
+                            </td>
+                            <td style="border-right:3px solid black;border-bottom:3px solid black;" width="97">
+                                @item.BirimFiyatı
+                            </td>
+                            <td style="border-right:5px solid black;border-bottom:3px solid black;" width="100">
+                                @item.Tutarı
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td style="border-left:5px solid black;border-top:3px solid black;" colspan="3" rowspan="4" width="60">
+                            <b>MÜŞTERİ ONAYI</b>
+                        </td>
+                        <td style="border-right:3px solid black;" colspan="3" rowspan="4" width="60">
+                            <b>ERTAN ARKAN                                           </b>
+                        </td>
+                        <td colspan="2" style="border-bottom:5px solid white;border-top:3px solid black;border-right:1px solid white;" width="100">
+                            <b>TOPLAM TUTAR</b>
+                        </td>
+                        <td style="border-right:5px solid black;border-top:3px solid black;" width="87"><b>@Model.teklifs.FirstOrDefault().poz_tutar_toplam</b></td>
+
+                    </tr>
+
+                    <tr>
+                        <td style="border-right: 5px solid white; border-bottom: 5px solid white;border-top:5px solid white;" colspan="2" width="100">
+                            <b>İSKONTO</b>
+                        </td>
+                        <td style="border-right:5px solid black;border-top:5px solid white;" width="87"><b>%@Model.teklifs.FirstOrDefault().iskonto_orani</b></td>
+                    </tr>
+                    <tr>
+                        <td style="border-right: 5px solid white; border-bottom: 5px solid white;" colspan="2" width="100">
+                            <b>KDV</b>
+                        </td>
+                        <td style="border-right:5px solid black;border-top:5px solid white;" width="87">
+                            <b>@Model.teklifs.FirstOrDefault().poz_kdv</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-right:1px solid white;" colspan="2" width="100">
+                            <b>ÖDENECEK TUTAR</b>
+                        </td>
+                        <td style="border-right:5px solid black;border-top:5px solid white;" width="87">
+                            <b>@Model.teklifs.FirstOrDefault().poz_toplam</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="border-top:5px solid black;border-right:5px solid black;border-left:5px solid black;"><center><b>TEKNİK ÖZELLİKLER</b></center></td>
+                        <td colspan="5" style="border-top:5px solid black!important;border-right:5px solid black;"><b><center>ANA ÖLÇÜLER</center></b></td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:5px solid black;" colspan="1"><b>FAN TİPİ</b></td>
+                        <td width="30%" colspan="1">BÜYÜKLÜK</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Büyüklük") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Büyüklük").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Büyüklük").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td>       </td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+
+                        <td style="" width="25%" colspan="3">SALYANGOZ BOYUTU</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Salyangoz Boyutu") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Salyangoz Boyutu").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Salyangoz Boyutu").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*//2.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>V</b></td>
+                        <td colspan="1" width="30%">AKIŞ DEBİSİ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Akışgan Debisi") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Akışgan Debisi").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Akışgan Debisi").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+
+                        <td style="" colspan="3">EMİŞ AĞZI</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Emiş Ağzı") != null)
+                            {
+                                <td style="">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Emiş Ağzı").buyukluk_id).name  </td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Emiş Ağzı").value3</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*3.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>Pt</b></td>
+                        <td style="" colspan="1">TOPLAM BASINÇ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Toplam Basınç") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Toplam Basınç").value3 </td>
+                                <td colspan="1" style="border-right:5px solid black;"> @Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Toplam Basınç").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+                        <td style="" colspan="3">ÇIKIŞ AĞZI</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzı") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzı").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Çıkış Ağzı").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*4.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>Pd 2</b></td>
+                        <td style="" colspan="1">ÇIKIŞ AĞZINDAKİ DİNAMİK BASINÇ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzındaki dinamik basınç") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzındaki dinamik basınç").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Çıkış Ağzındaki dinamik basınç").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+                        <td style="" colspan="3">ROTOR ÇAPI</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Rotor çapı") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Rotor çapı").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Rotor çapı").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*5. SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>C 2</b></td>
+                        <td colspan="1" style="">ÇIKIŞ AĞZINDAKİ AKIŞKAN HIZ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzındaki akışgan hız") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Çıkış Ağzındaki akışgan hız").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Çıkış Ağzındaki akışgan hız").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                        <td style="" colspan="3">AĞIRLIK</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Ağırlık") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Ağırlık").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Ağırlık").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*6. SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>Nm</b></td>
+                        <td colspan="1" style="">MOTOR GÜCÜ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Motor gücü") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Motor gücü").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Motor gücü").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                        <td style="" colspan="3">TAHRİK ŞEKLİ</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Tahrik şekli") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Tahrik şekli").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Tahrik şekli").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*7.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>n</b></td>
+                        <td colspan="1" style="">FAN ÇALIŞMA DEVRİ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Fan çalışma devri") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Fan çalışma devri").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Fan çalışma devri").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+                        <td style="" colspan="3">KONUM NOTASYONU</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Konum notasyonu") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Konum notasyonu").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Konum notasyonu").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*8.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>n</b></td>
+                        <td colspan="1" style="">TOPLAM VERİM</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Toplam verim") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Toplam verim").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Toplam verim").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+
+                        }
+                        <td style="" colspan="3">İŞLETME SICAKLIĞI</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "İşletme sıcaklığı") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "İşletme sıcaklığı").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "İşletme sıcaklığı").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*9.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;"><b>Ls</b></td>
+                        <td colspan="1" style="">ÖZGÜL GÜRÜLTÜ ŞİDDETİ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Özgül gürültü şiddeti") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Özgül gürültü şiddeti").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Özgül gürültü şiddeti").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                        <td style="" colspan="3">KANAT ADEDİ</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Kanat adedi") != null)
+                            {
+                                <td style="" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Kanat adedi").value3</td>
+                                <td style="border-right:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Kanat adedi").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+
+                                <td></td>
+                                <td style="border-right:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                    </tr>
+                    @*10.SATIR*@
+                    <tr>
+                        <td colspan="1" style="border-left: 5px solid black;border-bottom:5px solid black;"><b>LU</b></td>
+                        <td colspan="1" style="border-bottom:5px solid black;">ANA GÜRÜLTÜ ŞİDDETİ</td>
+                        @try
+                        {
+                            if (Model.buyuklukv.FirstOrDefault(x => x.value2 == "Ana gürültü şiddeti") != null)
+                            {
+                                <td colspan="1" style="border-left:1px solid white;border-bottom:5px solid black;">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Ana gürültü şiddeti").value3</td>
+                                <td colspan="1" style="border-right:5px solid black;border-bottom:5px solid black;">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Ana gürültü şiddeti").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td style="border-bottom:5px solid black;"></td>
+                                <td style="border-right:5px solid black; border-bottom:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td style="border-right:5px solid black;"></td>
+                        }
+                        <td style="border-bottom:5px solid black;" colspan="3">KANAT POZİSYONU</td>
+                        @try
+                        {
+                            if (@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Kanat pozisyonu") != null)
+                            {
+                                <td style="border-bottom:5px solid black;" colspan="1">@Model.buyuklukv.FirstOrDefault(x => x.value2 == "Kanat pozisyonu").value3</td>
+                                <td style="border-right:5px solid black;border-bottom:5px solid black;" colspan="1">@Model.buyukluks.FirstOrDefault(x => x.id == Model.buyuklukv.FirstOrDefault(y => y.value2 == "Kanat pozisyonu").buyukluk_id).name</td>
+                            }
+                            else
+                            {
+                                <td style="border-bottom:5px solid black;"></td>
+                                <td style="border-right:5px solid black;border-bottom:5px solid black;"></td>
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            <td style="border-bottom:5px solid black;"></td>
+                            <td style="border-right:5px solid black;border-bottom:5px solid black;"></td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </div>
+
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+﻿@model Wantsan.Controllers.ViewModel
+@{
+    ViewBag.Title = "YeniTeklif";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Teklif Ekle</title>
+    <style>
+
+
+        .stepwizard-step p {
+            margin-top: 10px;
+        }
+
+        .stepwizard-row {
+            display: table-row;
+        }
+
+        .stepwizard {
+            display: table;
+            width: 100%;
+            position: relative;
+        }
+
+        .stepwizard-step button[disabled] {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+
+        .stepwizard-row:before {
+            top: 14px;
+            bottom: 0;
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            z-order: 0;
+        }
+
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body style="font-size:12px;">
+
+        <div class="container">
+            <form name="f1" id="f1" method="post" role="form">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9">
+                            TEKLİF NO:Otomatik Atılacaktır.
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Tarih</label>
+                                <input name="date" required id="date" maxlength="100" type="date" placeholder="Tarih Seçiniz" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Sayın</label>
+                                <input name="sayin" required id="sayin" maxlength="100" type="text" class="form-control" placeholder="Sayın" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">İşin Adı</label>
+                                <input name="isin_adi" required id="isin_adi" maxlength="100" type="text" class="form-control" placeholder="İşin Adı" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">İlgi</label>
+                                <input name="ilgi" required id="ilgi" maxlength="100" type="text" class="form-control" placeholder="İlgi" />
+                            </div>
+                            @*<div class="form-group">
+                                    <label class="control-label">Toplam Bedeli</label>
+                                    <input maxlength="100" type="text" class="form-control" placeholder="Toplam Bedel(Lütfen Sayı Giriniz Aksi Halde Hatalara Yer Verebilirsiniz)" />
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Teslim Süresi</label>
+                                <input name="teslimsuresi" required id="teslimsuresi" maxlength="100" type="text" class="form-control" placeholder="Teslim Süresi" />
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Teslim Yeri ve Şekli</label>
+                                <select name="teslim_yeri" id="teslim_yeri" class="form-control">
+                                    @foreach (var item in Model.teslims)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Ödeme Şartları</label>
+                                <input name="odemesarti" required id="odemesarti" maxlength="100" type="text" class="form-control" placeholder="Ödeme Şartları" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label" style="font-size:12px;">Garanti</label>
+                                <input name="garanti" required id="garanti" maxlength="100" type="text" class="form-control" placeholder="Garanti" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" style="font-size:12px;">Opsiyon</label>
+                                    <input name="obsiyon" required id="obsiyon" maxlength="100" type="text" class="form-control" placeholder="Obsiyon" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" style="font-size:12px;">İskonto Yüzdesi</label>
+                                    <input name="iskonto" id="iskonto" type="number" class="form-control" placeholder="İskonto" />
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+
+                
+                @*<div class="panel panel-default">
+                        <div class="panel-heading">Dynamic Form Fields - Add & Remove Multiple fields</div>
+                        <div class="panel-heading">Education Experience</div>
+                        <div class="panel-body">
+
+                            <div id="education_fields">
+
+                            </div>
+                            <div class="col-sm-3 nopadding">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="Schoolname" name="Schoolname" value="" placeholder="School name">
+                                </div>
+                            </div>
+                            <div class="col-sm-3 nopadding">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="Major" name="Major[]" value="" placeholder="Major">
+                                </div>
+                            </div>
+                            <div class="col-sm-3 nopadding">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="Degree" name="Degree[]" value="" placeholder="Degree">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 nopadding">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <select style="border:none;" class="form-control" id="educationDate" name="educationDate[]">
+
+                                            <option value="">Date</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                        </select>
+                                        <div class="input-group-btn">
+                                            <button style="background-color:green;color:white;font-size:25px;border:none;" type="button" onclick="education_fields();"><b>+</b></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+
+                        </div>
+                        <div class="panel-footer"><small>Press <span class="glyphicon glyphicon-plus gs"></span> to add another form field :)</small>, <small>Press <span class="glyphicon glyphicon-minus gs"></span> to remove form field :)</small></div>
+                        <div class="panel-footer"><small><em><a href="http://shafi.info/">More Info - Developer Shafi (Bangladesh)</a></em></em></small></div>
+                    </div>*@
+                <center>
+                    <div class="form-group fieldGroup">
+                        <div class="input-group">
+                            <input type="text" value="Cinsi" disabled="disabled" class="form-control" />
+                            <input type="text" value="Miktarı" disabled="disabled" class="form-control" />
+                            <input type="text" value="Birim Fiyatı" disabled="disabled" class="form-control" />
+                            <input type="text" value="Tutarı" disabled="disabled" class="form-control" />
+
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" id="cinsi[]" name="cinsi[]" class="form-control" placeholder="Cinsi" />
+                            <input type="text" id="miktar[]" name="miktar[]" class="form-control" placeholder="Miktar" />
+                            <input type="text" id="birimfiyatı[]" name="birimfiyatı[]" class="form-control" placeholder="Birim Fiyatı" />
+                            <input type="text" id="tutarı[]" name="tutarı[]" onclick="myFunction()" onchange="myFunction()" class="form-control" placeholder="Tutarı" />
+                            <div class="input-group-addon">
+                                <a href="javascript:void(0)" class="btn btn-success addMore"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> <b>+</b></a>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+
+
+                <!-- copy of input fields group -->
+                <div class="form-group fieldGroupCopy" style="display: none;">
+                    <div class="input-group">
+                        <input type="text" id="cinsis[]" name="cinsis[]" class="form-control" placeholder="Cinsi" />
+                        <input type="text" id="miktars[]" name="miktars[]" class="form-control" placeholder="Miktar" />
+                        <input type="text" id="birimfiyatıs[]" name="birimfiyatıs[]" class="form-control" placeholder="Birim Fiyatı" />
+                        <input type="text" id="tutarıs[]" name="tutarıs[]" onclick="myFunction()" onchange="myFunction()" class="form-control" placeholder="Tutarı" />
+                        <div class="input-group-addon">
+                            <a href="javascript:void(0)" class="btn btn-danger remove"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span><b>-</b></a>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+
+    <center><h3>Teknik Özellikler</h3></center>
+    <div class="container-fluid">
+        <h3> Teknik Özellikler ve Ana Ölçüleri</h3>
+        <div class="row">
+            <div class="col-md-6">
+
+                <center>
+                    <table border="1">
+                        <tr>
+                            <td><b>Fan Tipi</b></td>
+                            <td>Büyüklük</td>
+                            <td><input placeholder="" style="width:150px;" name="txtbuyukluk" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcbuyukluk">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>V</b></td>
+                            <td>Akışgan Debisi</td>
+                            <td><input style="width:150px;" placeholder="" name="txtakiskan" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcakiskan">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Pt</b></td>
+                            <td>Toplam Basınç</td>
+                            <td><input style="width:150px;" placeholder="" name="txttoplambasinc" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slctoplambasinc">
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Pd 2</b></td>
+                            <td>Çıkış ağzındaki dinamik basınç</td>
+                            <td><input style="width:150px;" placeholder="" name="txtdinamikbasinc" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcdinamikbasinc">
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>C 2</b></td>
+                            <td>Çıkış ağzındaki akışgan hız</td>
+                            <td><input style="width:150px;" placeholder="" name="txtakiskanhiz" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcakiskanhiz">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Nm</b></td>
+                            <td>Motor gücü</td>
+                            <td><input style="width:150px;" placeholder="" name="txtmotorgucu" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcmotorgucu">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>n</b></td>
+                            <td>Fan çalışma devri</td>
+                            <td><input style="width:150px;" placeholder="" name="txtfancalismadevri" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcfancalismadevri">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>n</b></td>
+                            <td>Toplam verim</td>
+                            <td><input style="width:150px;" placeholder="" name="txttoplamverim" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slctoplamverim">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Ls</b></td>
+                            <td>Özgül gürültü şiddeti</td>
+                            <td><input style="width:150px;" placeholder="" name="txtgurultusiddeti" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcgurultusiddeti">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Lu</b></td>
+                            <td>Ana gürültü şiddeti</td>
+                            <td><input style="width:150px;" placeholder="" name="txtanagurultusiddeti" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcanagurultusiddeti">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+            <div class="col-md-6">
+                <center>
+                    <table border="1">
+                        <tr>
+                            <td><center>Salyangoz boyutu</center></td>
+                            <td><input style="width:150px;" placeholder="" name="txtsalyangoz" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcsalyangoz">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Emiş ağzı</td>
+                            <td><input style="width:150px;" placeholder="" name="txtemis" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcemis">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Çıkış Ağzı</td>
+                            <td><input style="width:150px;" placeholder="" name="txtcikisagzi" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slccikisagzi">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rotor çapı</td>
+                            <td><input style="width:150px;" placeholder="" name="txtrotor" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcrotor">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ağırlık</td>
+                            <td><input style="width:150px;" placeholder="" name="txtagirlik" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcagirlik">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tahrik şekli</td>
+                            <td><input style="width:150px;" placeholder="" name="txttahrik" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slctahrik">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Konum notasyonu</td>
+                            <td><input style="width:150px;" placeholder="" name="txtnotasyon" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcnotasyon">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>İşletme sıcaklığı</td>
+                            <td><input style="width:150px;" placeholder="" name="txtsicaklik" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slcsicaklik">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kanat adedi</td>
+                            <td><input style="width:150px;" placeholder="" name="txtkanatadet" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slckanatadet" style="width:100%;">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>Kanat pozisyonu</td>
+                            <td><input style="width:150px;" placeholder="" name="txtkanatpozisyon" type="text" /></td>
+                            <td>
+                                <select style="border:none;" name="slckanatpozisyon">
+
+                                    @foreach (var item in Model.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </center>
+            </div>
+        </div>
+
+    </div>
+    <center><input type="submit" value="Kaydet" class="btn btn-primary nextBtn btn-lg pull-right" /></center>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            //group add limit
+            var maxGroup = 10;
+
+            //add more fields group
+            var sayac = 0;
+            $(".addMore").click(function () {
+                sayac++;
+                if ($('body').find('.fieldGroup').length < maxGroup) {
+                    var fieldHTML = `<div class="form-group fieldGroup"><div class="input-group">
+                                                            <input type="text" id="cinsis[]" name="cinsis[]" class="form-control cins" placeholder="Cinsi" data-id="${sayac}">
+                                                            <input type="text" id="miktars[]" name="miktars[]"  class="form-control miktar_${sayac}" placeholder="Miktar" data-id="${sayac}">
+                                                            <input type="text" id="birimfiyatıs[]" name="birimfiyatıs[]" class="form-control birim_${sayac}" placeholder="Birim Fiyatı" data-id="${sayac}">
+                                                            <input type="text" id="tutarıs[]" name="tutarıs[]" class="form-control tutar" data-id="${sayac}" placeholder="Tutarı">
+                                                            <div class="input-group-addon">
+                                                                <a href="javascript:void(0)" class="btn btn-danger remove"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span><b>-</b></a>
+                                                            </div>
+                                                        </div></div>`;
+                    $('body').find('.fieldGroup:last').after(fieldHTML);
+                } else {
+                    alert('Maximum ' + maxGroup + ' groups are allowed.');
+                }
+            });
+
+            //remove fields group
+            $("body").on("click", ".remove", function () {
+                $(this).parents(".fieldGroup").remove();
+            });
+        });
+
+    </script>
+    <script>
+
+
+        function myFunction() {
+
+
+            var miktar = document.getElementById("miktar[]");
+            var birim = document.getElementById("birimfiyatı[]");
+            var tutar = document.getElementById("tutarı[]");
+            var miktars = document.getElementById("miktars[]");
+            var birims = document.getElementById("birimfiyatıs[]");
+            var tutars = document.getElementById("tutarıs[]");
+            tutars.value = birims.value * miktars.value;
+            tutar.value = birim.value * miktar.value;
+        }
+        $('body').on('change', '.tutar', function () {
+            let id = $(this).data("id");
+            let birim = $(".birim_" + id).val();
+            let miktar = $(".miktar_" + id).val();
+            $(this).val(birim * miktar);
+
+
+        })
+        $('body').on('click', '.tutar', function () {
+            let id = $(this).data("id");
+            let birim = $(".birim_" + id).val();
+            let miktar = $(".miktar_" + id).val();
+            $(this).val(birim * miktar);
+
+
+        })
+    </script>
+</body>
+</html>

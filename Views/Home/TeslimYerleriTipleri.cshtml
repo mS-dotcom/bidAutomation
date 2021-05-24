@@ -1,0 +1,31 @@
+﻿@model List<Wantsan.Models.teslim_yerleri_tipleri>
+@{
+    ViewBag.Title = "TeslimYerleriTipleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="/Home/Main" class="glyphicon glyphicon-backward"> <b>ANA MENÜ</b></a>
+<center>
+    <h2>Varolan Teslim Tipleri</h2>
+    <br />
+    <table>
+        <tr>
+            <td><b>ID</b></td>
+            <td><b>Teslim Yeri Tipi</b></td>
+            <td><b>SİL</b></td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td><a href="/Home/TeslimTipiSil/@item.id" style="margin-top:5px;margin-left:5px;" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <b>Teslim Yeri Tipi Ekle</b>
+    <form method="post">
+        <input type="text" name="name" placeholder="Teslim Yeri Tipi Adı" /><input type="submit" value="Ekle" />
+    </form>
+</center>
+

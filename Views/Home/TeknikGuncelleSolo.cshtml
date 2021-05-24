@@ -1,0 +1,34 @@
+﻿@model Wantsan.Models.buyukluk_values
+@{
+    ViewBag.Title = "TeknikGuncelleSolo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<center>
+    <form method="post" name="f1">
+        <table>
+            <tr>
+                <td>@Model.value1</td>
+                <td>@Model.value2</td>
+                <td><input type="text" name="value3" value="@Model.value3" /></td>
+                <td>
+                    <select name="byks">
+                        @foreach (var item in ViewBag.buyukluks)
+                        {
+                            if (item.name == Model.buyukluk_tipleri.name)
+                            {
+                                <option selected="selected">@item.name</option>
+                            }
+                            else
+                            {
+                                <option>@item.name</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td colspan="4">
+                    <center><input type="submit" value="Güncelle" class="btn btn-success" /></center>
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>

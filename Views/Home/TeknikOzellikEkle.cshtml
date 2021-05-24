@@ -1,0 +1,302 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "TeknikOzellikEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form name="f1" id="f1" method="post">
+    <center><h3>Teknik Özellikler</h3></center>
+    <div class="container-fluid">
+        <h3> Teknik Özellikler ve Ana Ölçüleri</h3>
+        <div class="row">
+            <div class="col-md-6">
+
+                <center>
+                    <table>
+                        <tr>
+                            <td><b>Fan Tipi</b></td>
+                            <td>Büyüklük</td>
+                            <td><input placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." style="width:150px;" name="txtbuyukluk" type="text" /></td>
+                            <td>
+                                <select name="slcbuyukluk">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>V</b></td>
+                            <td>Akışgan Debisi</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtakiskan" type="text" /></td>
+                            <td>
+                                <select name="slcakiskan">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Pt</b></td>
+                            <td>Toplam Basınç</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txttoplambasinc" type="text" /></td>
+                            <td>
+                                <select name="slctoplambasinc">
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Pd 2</b></td>
+                            <td>Çıkış ağzındaki dinamik basınç</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtdinamikbasinc" type="text" /></td>
+                            <td>
+                                <select name="slcdinamikbasinc">
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>C 2</b></td>
+                            <td>Çıkış ağzındaki akışgan hız</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtakiskanhiz" type="text" /></td>
+                            <td>
+                                <select name="slcakiskanhiz">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Nm</b></td>
+                            <td>Motor gücü</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtmotorgucu" type="text" /></td>
+                            <td>
+                                <select name="slcmotorgucu">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>n</b></td>
+                            <td>Fan çalışma devri</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtfancalismadevri" type="text" /></td>
+                            <td>
+                                <select name="slcfancalismadevri">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>n</b></td>
+                            <td>Toplam verim</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txttoplamverim" type="text" /></td>
+                            <td>
+                                <select name="slctoplamverim">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Ls</b></td>
+                            <td>Özgül gürültü şiddeti</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtgurultusiddeti" type="text" /></td>
+                            <td>
+                                <select name="slcgurultusiddeti">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Lu</b></td>
+                            <td>Ana gürültü şiddeti</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtanagurultusiddeti" type="text" /></td>
+                            <td>
+                                <select name="slcanagurultusiddeti">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+            <div class="col-md-6">
+                <center>
+                    <table>
+                        <tr>
+                            <td><center>Salyangoz boyutu</center></td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtsalyangoz" type="text" /></td>
+                            <td>
+                                <select name="slcsalyangoz">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Emiş ağzı</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtemis" type="text" /></td>
+                            <td>
+                                <select name="slcemis">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Çıkış Ağzı</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtcikisagzi" type="text" /></td>
+                            <td>
+                                <select name="slccikisagzi">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rotor çapı</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtrotor" type="text" /></td>
+                            <td>
+                                <select name="slcrotor">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ağırlık</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtagirlik" type="text" /></td>
+                            <td>
+                                <select name="slcagirlik">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tahrik şekli</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txttahrik" type="text" /></td>
+                            <td>
+                                <select name="slctahrik">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Konum notasyonu</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtnotasyon" type="text" /></td>
+                            <td>
+                                <select name="slcnotasyon">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>İşletme sıcaklığı</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtsicaklik" type="text" /></td>
+                            <td>
+                                <select name="slcsicaklik">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kanat adedi</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtkanatadet" type="text" /></td>
+                            <td>
+                                <select name="slckanatadet" style="width:100%;">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>Kanat pozisyonu</td>
+                            <td><input style="width:150px;" placeholder="Buraya veri girmezseniz ekleme yapmayacaktır." name="txtkanatpozisyon" type="text" /></td>
+                            <td>
+                                <select name="slckanatpozisyon">
+
+                                    @foreach (var item in ViewBag.buyukluks)
+                                    {
+                                        <option>@item.name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+  
+    </div>
+    <button class="btn btn-primary nextBtn btn-lg pull-right" type="submit">Kaydet</button>
+</form>

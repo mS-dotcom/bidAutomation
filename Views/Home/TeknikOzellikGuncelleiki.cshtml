@@ -1,0 +1,83 @@
+﻿@model Wantsan.Controllers.ViewModel
+@{
+    ViewBag.Title = "TeknikOzellikGuncelleiki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="/Home/Main" style="text-decoration:none;"> <b> ANA MENÜ</b></a>
+<form id="f1" name="f1" method="post">
+    <center>
+        <table>
+            @foreach (var item in Model.buyuklukv.ToList())
+            {
+            <tr>
+                <td>@item.value1 </td>
+                <td> @item.value2</td>
+                <td> @item.value3</td>
+                <td>
+                    @Model.buyukluks.Where(x => x.id == item.buyukluk_id).FirstOrDefault().name
+                </td>
+                <td><a class="btn btn-danger" href="/Home/TeknikSil/@item.id">Sil</a></td>
+                <td><a class="btn btn-primary" href="/Home/TeknikGuncelleSolo/@item.id">Güncelleme Ekranına Git</a></td>
+            </tr>
+            }
+        </table>
+        <hr />
+        <table>
+            <tr>
+                <td>
+                    <select name="buyukluktip">
+                        <option>Büyüklük</option>
+                        <option>Akışgan Debisi</option>
+                        <option>Toplam Basınç</option>
+                        <option>Çıkış Ağzındaki dinamik basınç</option>
+                        <option>Çıkış Ağzındaki akışgan hız</option>
+                        <option>Motor gücü</option>
+                        <option>Fan çalışma devri</option>
+                        <option>Toplam verim</option>
+                        <option>Özgül gürültü şiddeti</option>
+                        <option>Ana gürültü şiddeti</option>
+                        <option>Salyangoz boyutu</option>
+                        <option>Emiş Ağzı</option>
+                        <option>Çıkış Ağzı</option>
+                        <option>Rotor çapı</option>
+                        <option>Ağırlık</option>
+                        <option>Tahrik şekli</option>
+                        <option>Konum notasyonu</option>
+                        <option>İşletme sıcaklığı</option>
+                        <option>Kanat adedi</option>
+                        <option>Kanat pozisyonu</option>
+                    </select>
+                </td>
+                <td>
+                        <input type="text" name="deger" />
+                </td>
+                <td>
+                    <select name="byks">
+                        @foreach (var item in ViewBag.buyukluks)
+                        {
+                                <option>@item.name</option>
+                        }
+                    </select>
+                </td>
+                <td><input type="submit" value="Ekle" /></td>
+            </tr>
+        </table>
+        @*@try
+            {
+                if (@Model.buyuklukv.FirstOrDefault().teklif_id != null)
+                {
+                    <a href="/Home/YeniTeknikEkle/" @Model.buyuklukv.FirstOrDefault().teklif_id>Yeni Eklemek İstiyorum</a>
+                }
+                else
+                {
+                    <a href="/Home/TeknikOzellikEkle/" @ViewBag.id>Yeni Eklemek İstiyorums</a>
+                }
+
+            }
+            catch (Exception)
+            {
+                <a href="/Home/TeknikOzellikEkle/" @ViewBag.id>Yeni Eklemek İstiyorums</a>
+            }*@
+
+    </center>
+</form>

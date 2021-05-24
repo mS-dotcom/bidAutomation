@@ -1,0 +1,24 @@
+﻿@model List<Wantsan.Models.Musteri>
+@{
+    ViewBag.Title = "Musteriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <table>
+        <tr>
+            <td>İsim Soyisim</td>
+            <td>Telefon</td>
+            <td>Mail</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.name</td>
+                <td>@item.phone</td>
+                <td>@item.mail</td>
+                <td><a href="MusteriSil/@item.id" class="btn btn-danger">SİL</a></td>
+            </tr>
+        }
+    </table>
+</center>
